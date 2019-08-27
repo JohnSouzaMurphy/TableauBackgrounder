@@ -221,7 +221,7 @@ Function global:Kill-BGProcess {
          $Resource = "jobs"
          $requestURI = $BaseURI + $SiteID + "/" + $Resource + "/" + $JobID
          $Results = Invoke-RestMethod -Uri $requestURI -Headers $headers -Method $Method
-         Write-Host "Job with ID $killJob has been cancelled." -ForegroundColor DarkYellow
+         Write-Host "Job with ID $JobID has been cancelled." -ForegroundColor DarkYellow
          $Results.tsResponse.backgroundJobs.backgroundJob
 
          } 
