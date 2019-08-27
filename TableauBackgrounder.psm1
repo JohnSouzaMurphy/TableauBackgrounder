@@ -1,4 +1,4 @@
-﻿## Author: John Souza Murphy
+## Author: John Souza Murphy
 ## Email: jsouzamurphy@tableau.com
 ## Version: 1.0
 ## Date: 27/08/2019
@@ -8,7 +8,7 @@
 
 ## Usage: 
 ## 'New-APILogin' must be run first for authentication.
-## 'New-APILogin -Credential [username] -TableauServer [servername] -SSL [Yes/No] -API [API Version Number i.e. 3.4]'
+## 'New-APILogin -Credential [username] -TableauServer [servername] -SSL [Yes/No] -Version [Tableau Server Version e.g. 2019.1]'
 ## 'Get-BGProcess -Help' for usage instructions.
 ## 'Kill-BGProcess -Help' for usage instructions.
 
@@ -36,9 +36,9 @@ Function global:New-APILogin {
             [ValidateSet("Yes","No")]
             [string]$SSL,
             [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
-            [ValidateSet("3.4","3.3","3.2","3.1")]
-            [Alias("API Version")]
-            [string]$API,
+            [ValidateSet("2018.2","2018.3","2019.1","2019.2","2019.3")]
+            [Alias("Tableau Server Version")]
+            [string]$Version,
             [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
             [switch]$Help
 
@@ -50,11 +50,10 @@ Function global:New-APILogin {
             if ($Help){
             
             Write-Host "Usage: " -ForegroundColor Yellow
-            Write-Host "'New-APILogin -Credential [username] -TableauServer [servername] -SSL [Yes/No] -API [API Version Number i.e. 3.4]'" -ForegroundColor Yellow
+            Write-Host "'New-APILogin -Credential [username] -TableauServer [servername] -SSL [Yes/No] -Version [Tableau Server Version e.g. 2019.1]'" -ForegroundColor Yellow
             Write-Host "All above parameters are mandatory." -ForegroundColor Yellow
             
             } else { 
-
 
 
             # Setting up Credential and Server URI variables
@@ -66,6 +65,18 @@ Function global:New-APILogin {
                 $prefix = "https://"
             } elseif ($SSL -eq "No"){
                 $prefix = "http://"
+            }
+
+            if ($Version -eq "2018.2"){
+            $API = "3.1"
+            } elseif ($Version -eq "2018.3"){
+            $API = "3.2"
+            } elseif ($Version -eq "2019.1"){
+            $API = "3.3"
+            } elseif ($Version -eq "2019.2"){
+            $API = "3.4"
+            } elseif ($Version -eq "2019.3"){
+            $API = "3.4"
             }
 
             $TServer = $prefix + $TableauServer
