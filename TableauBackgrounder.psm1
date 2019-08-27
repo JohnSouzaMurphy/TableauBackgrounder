@@ -36,7 +36,7 @@ Function global:New-APILogin {
             [ValidateSet("Yes","No")]
             [string]$SSL,
             [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
-            [ValidateSet("3.4")]
+            [ValidateSet("3.4","3.3","3.2","3.1")]
             [Alias("API Version")]
             [string]$API,
             [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
