@@ -94,8 +94,12 @@ Function global:New-APILogin {
             $signInURI = "$TServer/api/$API/auth/signin"
 
             # Sending Authentication Request
-            $response = Invoke-RestMethod -Uri $signInURI -Body $loginbody -Method Post
+            try {$response = Invoke-RestMethod -Uri $signInURI -Body $loginbody -Method Post}
+            catch {}
             # Store authentication token and details for continued use
+
+            #Check if sign-in succesful
+                if ($response){
 
             $authToken = $response.tsResponse.credentials.token
             $global:siteID = $response.tsResponse.credentials.site.id
@@ -112,7 +116,13 @@ Function global:New-APILogin {
             Write-Host "You are now signed in." -ForegroundColor Green
             Write-Host "Run 'Get-BGProcess -Help' to see options." -ForegroundColor Green
             Write-Host "Run 'Kill-BGProcess -Help' to see options." -ForegroundColor Green
-
+            }
+            else {
+            # Sign in unsuccessful 
+            Write-Host "Unable to connect to your Tableau Server: $TableauServer." -ForegroundColor Red
+            Write-Host "Please check that the Server Name/IP is correct and that the server is online." -ForegroundColor Red
+            Write-Host "Also, make sure that your username and password are correct." -ForegroundColor Red
+            }
  }
 }
 
@@ -221,7 +231,7 @@ Function global:Kill-BGProcess {
          $Resource = "jobs"
          $requestURI = $BaseURI + $SiteID + "/" + $Resource + "/" + $JobID
          $Results = Invoke-RestMethod -Uri $requestURI -Headers $headers -Method $Method
-         Write-Host "Job with ID $JobID has been cancelled." -ForegroundColor DarkYellow
+         Write-Host "Job with ID $killJob has been cancelled." -ForegroundColor DarkYellow
          $Results.tsResponse.backgroundJobs.backgroundJob
 
          } 
