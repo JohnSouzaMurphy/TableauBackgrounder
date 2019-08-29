@@ -3,8 +3,8 @@
 ## Version: 1.0
 ## Date: 27/08/2019
 ## Description: This is a simple Powershell Module which allows us to list and kill Backgrounder jobs using the REST API.
-## Tested: Only tested with Tableau Server 2019.2 running on Powershell version 5.1 so far.
-## Expect to work with Tableau Server versions 2018.2 and newer.
+## Tested: This has been tested with Tableau Server version 2019.2 running on Powershell version 5.1.
+## Expected to work with Tableau Server versions 2018.2 and newer.
 
 ## Usage: 
 ## 'New-APILogin' must be run first for authentication.
